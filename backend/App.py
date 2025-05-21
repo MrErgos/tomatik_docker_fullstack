@@ -18,7 +18,10 @@ import numpy as np
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "http://localhost"}})
+CORS(app, resources={r"/*": {"origins": [
+    "http://188.225.45.142:80",
+    "https://188.225.45.142"
+]}})
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', 'sqlite:///users.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['JWT_SECRET_KEY'] = 'supersecretkey'

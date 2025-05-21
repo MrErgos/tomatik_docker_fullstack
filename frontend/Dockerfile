@@ -1,4 +1,3 @@
-# tomatik/frontend/Dockerfile
 FROM node:22.15.1 AS builder
 
 WORKDIR /app
