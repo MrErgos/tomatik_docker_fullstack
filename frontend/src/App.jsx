@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const API_BASE = import.meta.env.VITE_API_URL || 'http://188.225.45.142:5000';
+const API_BASE = import.meta.env.VITE_API_URL || 'https://188.225.45.142/api';
 
 export default function App() {
   const [token, setToken] = useState('');

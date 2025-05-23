@@ -1,4 +1,3 @@
-# tomatik/backend/Dockerfile
 FROM python:3.10-slim
 
 # Install required system libraries
