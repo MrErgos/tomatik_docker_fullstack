@@ -37,7 +37,6 @@ logging.basicConfig(level=logging.DEBUG)
 origins = validate_origin(os.getenv("CORS_ORIGINS", "*"))
 CORS(app, supports_credentials=True, resources={r"/*": {"origins": origins}})
 app.logger.debug(f"CORS_ORIGINS: {repr(origins)}")
-logging.debug(f"Сучка url к database: {os.getenv('DATABASE_URL', 'sqlite:///instance/users.db')}")
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', 'sqlite:///instance/users.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['JWT_SECRET_KEY'] = os.getenv('JWT_SECRET_KEY', 'changeme')
@@ -88,13 +87,9 @@ def login():
     user = User.query.filter_by(email=data['email']).first()
     if user and bcrypt.check_password_hash(user.password_hash, data['password']):
         access_token = create_access_token(identity=user.email)
-        app.logger.debug(f"Clean access_token repr: {access_token!r}")
         resp = make_response({'message': 'Login successful'})
         resp.headers['X-CSRF-TOKEN'] = get_csrf_token(access_token)
-        app.logger.debug(f"csrf_token repr: {resp.headers['X-CSRF-TOKEN']!r}")
         set_access_cookies(resp, access_token)
-        for h in resp.headers:
-            app.logger.debug(f"Header: {h}")
         return resp
     return jsonify({'error': 'Invalid credentials'}), 401
 
