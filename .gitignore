@@ -4359,3 +4359,8 @@
 /frontend/node_modules/yaml/util.js
 /frontend/node_modules/.package-lock.json
 /privkey.pem
+/cert/selfsigned.key
+/cert/selfsigned.crt
+/backend/yolo_model.pt
+/telegram_bot/.env.prod
+/telegram_bot/.env.dev
