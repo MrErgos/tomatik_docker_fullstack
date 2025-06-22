@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Вход | ТомITик</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(#d8e3a8, #aac46b);
+      color: #333;
+      text-align: center;
+    }
+    header {
+      background-color: #a3bc67;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header h1 {
+      color: white;
+      font-weight: 300;
+    }
+    nav a {
+      margin-left: 20px;
+      text-decoration: none;
+      color: white;
+      font-size: 0.9rem;
+    }
+    .form-container {
+      margin: 100px auto;
+      padding: 40px;
+      background-color: rgba(255, 255, 255, 0.9);
+      max-width: 400px;
+      border-radius: 20px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    .form-container h2 {
+      margin-bottom: 20px;
+      color: #4b2e2e;
+    }
+    .form-group {
+      margin-bottom: 15px;
+      text-align: left;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 10px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+    .form-container button {
+      margin-top: 20px;
+      padding: 10px 30px;
+      border-radius: 30px;
+      background-color: #f7f0dd;
+      border: 2px solid #4b2e2e;
+      color: #4b2e2e;
+      font-weight: bold;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    .footer {
+      background-color: white;
+      padding: 40px 20px 60px;
+    }
+    .footer h3 {
+      font-size: 1.3rem;
+      margin-bottom: 10px;
+    }
+    .footer p {
+      margin: 5px;
+    }
+    .bottom-bar {
+      background-color: #000;
+      color: white;
+      padding: 10px;
+      font-size: 0.7rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>ТомITик</h1>
+    <nav>
+      <a href="index.html">Главная</a>
+      <a href="#">О системе</a>
+      <a href="#">Контакты</a>
+    </nav>
+  </header>
+
+  <div class="form-container">
+    <h2>Вход в систему</h2>
+    <form onsubmit="return handleLogin(event)">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required />
+      </div>
+      <div class="form-group">
+        <label for="password">Пароль</label>
+        <input type="password" id="password" name="password" required />
+      </div>
+      <button type="submit">Войти</button>
+    </form>
+  </div>
+
+  <footer class="footer">
+    <h3>Наши контакты</h3>
+    <p>+7(996)697-92-36</p>
+    <p>tomITik@gmail.com</p>
+  </footer>
+
+  <div class="bottom-bar">
+    Made on Tilda
+  </div>
+
+  <script>
+    async function handleLogin(event) {
+      event.preventDefault();
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      if (!email) {
+        alert("Пожалуйста, введите email.");
+        return false;
+      }
+
+      try {
+        const response = await fetch("http://localhost:8000/api/token/", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email, password }),
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          document.cookie = `access=${data.access}; path=/;`;
+          document.cookie = `refresh=${data.refresh}; path=/;`;
+          alert("Успешный вход!");
+          window.location.href = "index.html";
+        } else {
+          alert("Ошибка авторизации. Проверьте логин и пароль.");
+        }
+      } catch (error) {
+        console.error("Ошибка входа:", error);
+        alert("Ошибка соединения с сервером");
+      }
+    }
+  </script>
+</body>
+</html>

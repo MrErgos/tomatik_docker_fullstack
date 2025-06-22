@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ТомITик</title>
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(#d8e3a8, #aac46b);
+      color: #333;
+      text-align: center;
+    }
+    header {
+      background-color: #a3bc67;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 10;
+    }
+    header h1 {
+      color: white;
+      font-weight: 300;
+    }
+    nav a {
+      margin-left: 20px;
+      text-decoration: none;
+      color: white;
+      font-size: 0.9rem;
+    }
+    .hero {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+    .hero h2 {
+      font-size: 3rem;
+      font-weight: 800;
+      margin-bottom: 10px;
+      color: #4b2e2e;
+    }
+    .hero p {
+      margin-bottom: 30px;
+      font-size: 0.9rem;
+    }
+    .hero button {
+      margin: 0 10px;
+      padding: 10px 20px;
+      border-radius: 30px;
+      border: 2px solid #4b2e2e;
+      cursor: pointer;
+      font-weight: bold;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .btn-register {
+      background-color: #a3bc67;
+      color: white;
+      border: 2px solid white;
+    }
+    .btn-login {
+      background-color: #f7f0dd;
+      color: #4b2e2e;
+      border: 2px solid #4b2e2e;
+    }
+    .arrow {
+      font-size: 2rem;
+      margin-top: 40px;
+      cursor: pointer;
+    }
+    .team {
+      background-color: #aac46b;
+      padding: 80px 20px;
+    }
+    .team h3 {
+      font-size: 1.4rem;
+      margin-bottom: 30px;
+    }
+    .team-members {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+    .member {
+      text-align: center;
+    }
+    .member img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 10px;
+    }
+    .footer {
+      background-color: white;
+      padding: 40px 20px 60px;
+    }
+    .footer h3 {
+      font-size: 1.3rem;
+      margin-bottom: 10px;
+    }
+    .footer p {
+      margin: 5px;
+    }
+    .bottom-bar {
+      background-color: #000;
+      color: white;
+      padding: 10px;
+      font-size: 0.7rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>ТомITик</h1>
+    <nav>
+      <a href="#team">О системе</a>
+      <a href="#team">Принцип работы</a>
+      <a href="#team">Контакты</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h2>ТомITик</h2>
+    <p>Автоматизированная система определения спелости томатов</p>
+    <button class="btn-register" onclick="window.location.href='/register'">Регистрация</button>
+    <button class="btn-login" onclick="window.location.href='/login'">Вход</button>
+    <div class="arrow" onclick="document.getElementById('team').scrollIntoView({ behavior: 'smooth' });">
+      ↓
+    </div>
+  </section>
+
+  <section id="team" class="team">
+    <h3>Наша команда</h3>
+    <div class="team-members">
+      <div class="member">
+        <img src="https://via.placeholder.com/120" alt="Бабич Георгий">
+        <p><strong>Бабич Георгий</strong><br/>Founder & Art Director</p>
+      </div>
+      <div class="member">
+        <img src="https://via.placeholder.com/120" alt="Корнеева Дарья">
+        <p><strong>Корнеева Дарья</strong><br/>Design Director</p>
+      </div>
+      <div class="member">
+        <img src="https://via.placeholder.com/120" alt="Алейникова Дарья">
+        <p><strong>Алейникова Дарья</strong><br/>Customer Support</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <h3>Наши контакты</h3>
+    <p>+7(996)697-92-36</p>
+    <p>tomITik@gmail.com</p>
+  </footer>
+</body>
+</html>

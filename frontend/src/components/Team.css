@@ -1,0 +1,17 @@
+.cover__arrow-third {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+  cursor: pointer;
+}
+
+.cover__arrow-svg-third {
+  fill: #ffffff;
+  width: 38px;
+  height: auto;
+  transition: transform 0.3s ease;
+}
+
+.cover__arrow-svg-third:hover {
+  transform: translateY(5px);
+}

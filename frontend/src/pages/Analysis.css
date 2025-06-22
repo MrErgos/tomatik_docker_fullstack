@@ -1,0 +1,113 @@
+.form-container {
+  margin: 40px auto;
+  padding: 40px;
+  background-color: rgba(255, 255, 255, 0.9);
+  min-height: auto;
+  max-width: 1084px;
+  width: 100%;
+  border-radius: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+}
+
+.form-container h2 {
+  margin-bottom: 20px;
+  color: #4b2e2e;
+}
+
+.upload-area {
+  border: 2px dashed #ccc;
+  padding: 200px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.upload-area:hover {
+  background-color: #f9f9f9;
+}
+
+.image-preview {
+  margin-bottom: 20px;
+}
+
+canvas {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+button {
+  border-radius: 30px;
+  font-weight: bold;
+  cursor: pointer;
+
+  padding: 12px 30px;
+  border: 1px solid #6c584c;
+  font-size: 18px;
+  margin: 10px;
+
+
+  background-color: #f0ead2;
+  color: #6c584c;
+}
+.preview-section {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 30px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.stats {
+  text-align: left;
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  min-width: 200px;
+}
+
+.stats h4 {
+  margin-top: 0;
+  color: #4b2e2e;
+}
+
+/* Добавим стиль для пункта "Всего" без маркера */
+.stats ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.stats ul li.no-bullet {
+  list-style: none;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+.stats-list li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+/* Анимация при наведении на статистику и диаграмму */
+.stats:hover,
+.stats .recharts-wrapper:hover {
+  transform: scale(1.02);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+}
+
+.stats,
+.recharts-wrapper {
+  transition: all 0.3s ease;
+}
+
+.form-container button {
+  display: block;
+  margin: 40px auto 0 auto;
+}

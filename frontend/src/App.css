@@ -1,0 +1,14 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(#d8e3a8, #aac46b);
+  color: #333;
+  text-align: center;
+}
+
+.bottom-bar {
+  background-color: #000;
+  color: white;
+  padding: 10px;
+  font-size: 0.7rem;
+}
