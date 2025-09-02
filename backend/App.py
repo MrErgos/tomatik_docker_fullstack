@@ -14,7 +14,6 @@ import base64
 import cv2
 import numpy as np
 
-# Load environment variables from .env file
 load_dotenv()
 
 app = Flask(__name__)
@@ -80,19 +79,16 @@ def predict():
     result = results[0]
     orig_w, orig_h = result.orig_shape[1], result.orig_shape[0]
 
-    # Копия изображения для рисования
     annotated_image = image_np.copy()
 
     for box in result.boxes.data.cpu().numpy():
         x1, y1, x2, y2, score, cls = box
         label = f"{model.names[int(cls)]} {score:.2f}"
 
-        # Нарисовать прямоугольник и текст
         cv2.rectangle(annotated_image, (int(x1), int(y1)), (int(x2), int(y2)), (0, 255, 0), 2)
         cv2.putText(annotated_image, label, (int(x1), int(y1) - 10),
                     cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 0, 0), 2)
 
-    # Конвертировать изображение обратно в PIL и затем в base64
     annotated_pil = Image.fromarray(annotated_image)
     buffer = io.BytesIO()
     annotated_pil.save(buffer, format='JPEG')
@@ -105,7 +101,6 @@ def predict():
     })
 
 if __name__ == '__main__':
-    # Create tables if they don't exist
     with app.app_context():
         db.create_all()
     app.run(host='0.0.0.0', port=5000)
