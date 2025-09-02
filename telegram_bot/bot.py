@@ -21,22 +21,20 @@ if not TOKEN:
 
 ENV = os.getenv("BOT_ENV", "development")
 WEBHOOK_PATH = "/webhook/bot"
-WEBHOOK_URL = os.getenv("WEBHOOK_URL")  # только для production
+WEBHOOK_URL = os.getenv("WEBHOOK_URL")
 
-# Логирование (полезно в докере)
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# Создание объектов бота и диспетчера
 bot = Bot(token=TOKEN)
 dp = Dispatcher(storage=MemoryStorage())
 router = Router()
 model = YOLO("yolo_model.pt")
 
 COLORS = {
-    "tomato_ripe": (77, 77, 255),        # BGR для красного (#ff4d4d)
-    "tomato_semi_ripe": (0, 215, 255),   # BGR для жёлтого (#ffd700)
-    "tomato_green": (50, 205, 50),       # BGR для зелёного (#32cd32)
+    "tomato_ripe": (77, 77, 255),        # (#ff4d4d)
+    "tomato_semi_ripe": (0, 215, 255),   # (#ffd700)
+    "tomato_green": (50, 205, 50),       # (#32cd32)
 }
 
 LABELS = {
@@ -45,7 +43,6 @@ LABELS = {
     "tomato_green": "Зелёные"
 }
 
-# Обработчик фотографий
 @router.message(F.content_type == ContentType.PHOTO)
 async def handle_photo(msg: types.Message):
     photo = msg.photo[-1]
@@ -54,21 +51,18 @@ async def handle_photo(msg: types.Message):
     path = os.path.join(temp_dir, f"{photo.file_unique_id}.jpg")
     await bot.download_file(file.file_path, path)
 
-    # Запуск модели
     results = model(path)
     result = results[0]
 
-    # Чтение исходного изображения
     img = cv2.imread(path)
 
-    # Подсчёт статистики
     summary = {"total": 0, "tomato_ripe": 0, "tomato_semi_ripe": 0, "tomato_green": 0}
 
     for det in result.boxes.data.tolist():
         x1, y1, x2, y2, conf, cls = det
         class_name = result.names[int(cls)]
         if class_name not in COLORS:
-            continue  # если не интересующий нас класс
+            continue
 
         color = COLORS[class_name]
         cv2.rectangle(img, (int(x1), int(y1)), (int(x2), int(y2)), color, 3)
@@ -76,11 +70,9 @@ async def handle_photo(msg: types.Message):
         summary["total"] += 1
         summary[class_name] += 1
 
-    # Сохранение изображения
     result_path = os.path.join(temp_dir, f"result_{photo.file_unique_id}.jpg")
     cv2.imwrite(result_path, img)
 
-    # Построим диаграмму
     pie_path = os.path.join(temp_dir, f"pie_{photo.file_unique_id}.png")
     labels = []
     values = []
@@ -104,7 +96,6 @@ async def handle_photo(msg: types.Message):
     else:
         pie_path = None
 
-    # Отправка пользователю
     await msg.answer_photo(types.FSInputFile(result_path), caption="🧠 Анализ завершён!")
 
     stat_text = (
@@ -119,21 +110,17 @@ async def handle_photo(msg: types.Message):
     if pie_path:
         await msg.answer_photo(types.FSInputFile(pie_path), caption="📈 Диаграмма распределения")
 
-# Обработчик команды /start
 @router.message(Command("start"))
 async def welcome(msg: types.Message):
     await msg.answer("Привет! Отправь фото, и YOLO его проанализирует.")
 
-# Подключаем маршруты
 dp.include_router(router)
 
-# Установка вебхука в production
 async def on_startup():
     if ENV == "production" and WEBHOOK_URL:
         await bot.set_webhook(WEBHOOK_URL)
         logger.info(f"Webhook set to {WEBHOOK_URL}")
 
-# Основной запуск приложения
 async def main():
     if ENV == "production":
         app = web.Application()
@@ -147,7 +134,6 @@ async def main():
 
         logger.info("Bot is running via webhook...")
 
-        # Бесконечное ожидание (ждет до остановки контейнера)
         await asyncio.Event().wait()
 
     else:

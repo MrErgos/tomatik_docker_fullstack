@@ -3,12 +3,10 @@ FROM python:3.10-slim
 
 WORKDIR /base
 
-# Установка системных библиотек, нужных для YOLO/OpenCV
 RUN apt-get update && apt-get install -y \
     libgl1 \
     libglib2.0-0 \
     && rm -rf /var/lib/apt/lists/*
 
-# Установка общих Python-зависимостей
 COPY requirements.shared.txt .
 RUN pip install --no-cache-dir -r requirements.shared.txt

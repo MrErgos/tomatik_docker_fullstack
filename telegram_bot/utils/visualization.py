@@ -10,19 +10,15 @@ def draw_pie_chart(labels: list, values: list, colors: list, pie_path: str):
         x = np.cos(np.deg2rad(angle))
         y = np.sin(np.deg2rad(angle))
 
-        # End of line (near pie)
         line_x = 1.05 * x
         line_y = 1.05 * y
-        # Label position (further out)
         label_x = 1.25 * x
         label_y = 1.25 * y
 
-        # Draw line
         ax.plot([wedge.center[0] + line_x, wedge.center[0] + label_x],
                 [wedge.center[1] + line_y, wedge.center[1] + label_y],
                 color='black', lw=0.8)
 
-        # Label text
         ax.text(wedge.center[0] + label_x, wedge.center[1] + label_y,
                 f"{labels[i]} ({values[i]})",
                 ha='center', va='center', fontsize=10)

@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# Загружаем переменные окружения
 if [ "$FLASK_ENV" = "production" ]; then
     echo "Using .env.prod"
     export $(grep -v '^#' .env.prod | xargs)
@@ -11,5 +10,4 @@ fi
 
 cd /app
 
-# Запуск приложения
 python App.py

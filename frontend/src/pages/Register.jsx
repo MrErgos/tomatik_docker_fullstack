@@ -1,6 +1,6 @@
 import React from 'react';
 import './Register.css';
-import api from '../api'; // импорт конфигурированного axios-инстанса
+import api from '../api';
 
 export default function Register() {
     const handleRegister = async (event) => {

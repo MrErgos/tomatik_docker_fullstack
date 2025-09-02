@@ -10,7 +10,6 @@ const api = axios.create({
   withCredentials: true,
 });
 
-// Удаляем Bearer-токен, вместо этого добавим X-CSRF-TOKEN
 api.interceptors.request.use(
   (config) => {
     const csrfToken = localStorage.getItem('csrfToken');

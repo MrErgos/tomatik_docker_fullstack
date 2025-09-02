@@ -25,7 +25,6 @@ services:
     container_name: frontend
     volumes:
       - frontend_dist:/app/dist
-    # При старте: билдим и копируем в /app/dist, затем "спим", чтобы контейнер не упал
     command: >
       sh -c "
         npm ci &&
@@ -37,7 +36,6 @@ services:
       test: [ "CMD", "test", "-f", "/app/dist/index.html" ]
       interval: 10s
       retries: 5
-    # флашим логи сразу, нет рестартов
     restart: "no"
 
   telegram_bot:
